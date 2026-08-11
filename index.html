@@ -1,641 +1,849 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Amila Tihic — Industrial & Jewellery Designer</title>
- <style>
-   :root {
-     --bg: #fafafa;
-     --surface: #ffffff;
-     --text: #1a1a1a;
-     --muted: #6b6b6b;
-     --accent: #c9a87c;
-     --line: #e8e8e8;
-     --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-   }
-
-   * {
-     box-sizing: border-box;
-     margin: 0;
-     padding: 0;
-   }
-
-   html {
-     scroll-behavior: smooth;
-   }
-
-   body {
-     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-     background-color: var(--bg);
-     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a87c' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-     color: var(--text);
-     line-height: 1.6;
-     -webkit-font-smoothing: antialiased;
-   }
-
-   a {
-     color: inherit;
-     text-decoration: none;
-   }
-
-   img {
-     max-width: 100%;
-     display: block;
-   }
-
-   .app {
-     display: flex;
-     min-height: 100vh;
-   }
-
-   .nav {
-     position: fixed;
-     top: 0;
-     right: 0;
-     width: 64px;
-     height: 100vh;
-     background: rgba(255, 255, 255, 0.92);
-     backdrop-filter: blur(8px);
-     border-left: 1px solid var(--line);
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     z-index: 100;
-   }
-
-   .nav__list {
-     list-style: none;
-     display: flex;
-     flex-direction: column;
-     gap: 2rem;
-   }
-
-   .nav__link {
-     writing-mode: vertical-rl;
-     text-orientation: mixed;
-     font-size: 0.75rem;
-     letter-spacing: 0.12em;
-     text-transform: uppercase;
-     color: var(--muted);
-     transition: color 0.2s ease;
-     padding: 0.5rem;
-   }
-
-   .nav__link:hover,
-   .nav__link.active {
-     color: var(--text);
-   }
-
-   .main {
-     flex: 1;
-     margin-right: 64px;
-     min-height: 100vh;
-   }
-
-   .page {
-     display: none;
-     animation: fade 0.4s ease;
-   }
-
-   .page.active {
-     display: block;
-   }
-
-   @keyframes fade {
-     from {
-       opacity: 0;
-       transform: translateY(10px);
-     }
-     to {
-       opacity: 1;
-       transform: translateY(0);
-     }
-   }
-
-   .container {
-     width: 100%;
-     max-width: 1200px;
-     margin: 0 auto;
-     padding: 0 1.5rem;
-   }
-
-   .hero {
-     min-height: 100vh;
-     display: flex;
-     align-items: center;
-     padding: 6rem 0;
-   }
-
-   .hero__inner {
-     display: grid;
-     grid-template-columns: 1fr;
-     gap: 3rem;
-     align-items: center;
-     width: 100%;
-   }
-
-   .hero__content {
-     order: 2;
-   }
-
-   .hero__visual {
-     order: 1;
-     display: flex;
-     justify-content: center;
-   }
-
-   .hero__photo {
-     width: 260px;
-     height: 320px;
-     border-radius: 1rem;
-     background: linear-gradient(135deg, #ece8e3 0%, #d8d0c6 100%);
-     border: 1px solid var(--line);
-     box-shadow: var(--shadow);
-     overflow: hidden;
-     position: relative;
-   }
-
-   .hero__photo img {
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     display: block;
-   }
-
-   .hero__eyebrow {
-     font-size: 0.75rem;
-     letter-spacing: 0.2em;
-     text-transform: uppercase;
-     color: var(--muted);
-     margin-bottom: 1rem;
-   }
-
-   .hero__title {
-     font-size: clamp(2.5rem, 8vw, 5rem);
-     line-height: 1.05;
-     font-weight: 500;
-     margin-bottom: 1.5rem;
-     letter-spacing: -0.03em;
-   }
-
-   .hero__tagline {
-     font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-     color: var(--muted);
-     max-width: 540px;
-     margin-bottom: 2.5rem;
-   }
-
-   .hero__cta {
-     display: inline-flex;
-     align-items: center;
-     gap: 0.75rem;
-     background: var(--text);
-     color: var(--surface);
-     padding: 1rem 2rem;
-     font-size: 0.875rem;
-     letter-spacing: 0.05em;
-     text-transform: uppercase;
-     border-radius: 2rem;
-     transition: transform 0.2s ease, background 0.2s ease;
-     width: fit-content;
-   }
-
-   .hero__cta:hover {
-     background: var(--accent);
-     transform: translateY(-2px);
-   }
-
-   .section {
-     padding: 6rem 0;
-   }
-
-   .section__header {
-     margin-bottom: 3rem;
-   }
-
-   .section__eyebrow {
-     font-size: 0.75rem;
-     letter-spacing: 0.2em;
-     text-transform: uppercase;
-     color: var(--accent);
-     margin-bottom: 0.75rem;
-   }
-
-   .section__title {
-     font-size: clamp(2rem, 5vw, 3rem);
-     font-weight: 500;
-     letter-spacing: -0.02em;
-   }
-
-   .about__intro {
-     color: var(--muted);
-     font-size: 1.125rem;
-     max-width: 720px;
-     margin-bottom: 3rem;
-   }
-
-   .grid {
-     display: grid;
-     gap: 1.5rem;
-   }
-
-   .grid--about {
-     grid-template-columns: 1fr;
-   }
-
-   .card {
-     background: var(--surface);
-     border: 1px solid var(--line);
-     border-radius: 1rem;
-     padding: 1.5rem;
-   }
-
-   .card__title {
-     font-size: 0.875rem;
-     letter-spacing: 0.1em;
-     text-transform: uppercase;
-     color: var(--muted);
-     margin-bottom: 1.25rem;
-   }
-
-   .list {
-     list-style: none;
-     display: flex;
-     flex-wrap: wrap;
-     gap: 0.75rem;
-   }
-
-   .tag {
-     background: var(--bg);
-     border: 1px solid var(--line);
-     padding: 0.5rem 1rem;
-     border-radius: 2rem;
-     font-size: 0.875rem;
-     color: var(--text);
-   }
-
-   .projects__grid {
-     display: grid;
-     grid-template-columns: 1fr;
-     gap: 1.5rem;
-   }
-
-   .project {
-     background: var(--surface);
-     border: 1px solid var(--line);
-     border-radius: 1rem;
-     overflow: hidden;
-     transition: transform 0.2s ease, box-shadow 0.2s ease;
-   }
-
-   .project:hover {
-     transform: translateY(-4px);
-     box-shadow: var(--shadow);
-   }
-
-   .project__image {
-     aspect-ratio: 4 / 3;
-     background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-     overflow: hidden;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-   }
-
-   .project__image img {
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     display: block;
-   }
-
-   .project__placeholder {
-     color: var(--muted);
-     font-size: 0.875rem;
-   }
-
-   .project__info {
-     padding: 1.25rem;
-   }
-
-   .project__category {
-     font-size: 0.6875rem;
-     letter-spacing: 0.15em;
-     text-transform: uppercase;
-     color: var(--accent);
-     margin-bottom: 0.5rem;
-   }
-
-   .project__title {
-     font-size: 1.125rem;
-     font-weight: 500;
-   }
-
-   .contact__content {
-     display: grid;
-     gap: 2rem;
-   }
-
-   .contact__details {
-     list-style: none;
-     display: flex;
-     flex-direction: column;
-     gap: 1rem;
-   }
-
-   .contact__details a {
-     color: var(--muted);
-     transition: color 0.2s ease;
-   }
-
-   .contact__details a:hover {
-     color: var(--text);
-   }
-
-   .form {
-     display: flex;
-     flex-direction: column;
-     gap: 1rem;
-   }
-
-   .form__field {
-     display: flex;
-     flex-direction: column;
-     gap: 0.5rem;
-   }
-
-   .form__label {
-     font-size: 0.75rem;
-     letter-spacing: 0.1em;
-     text-transform: uppercase;
-     color: var(--muted);
-   }
-
-   .form__input,
-   .form__textarea {
-     width: 100%;
-     padding: 1rem;
-     border: 1px solid var(--line);
-     border-radius: 0.75rem;
-     background: var(--surface);
-     font: inherit;
-     color: var(--text);
-   }
-
-   .form__input:focus,
-   .form__textarea:focus {
-     outline: none;
-     border-color: var(--accent);
-   }
-
-   .form__textarea {
-     min-height: 160px;
-     resize: vertical;
-   }
-
-   .form__button {
-     align-self: flex-start;
-     background: var(--text);
-     color: var(--surface);
-     border: none;
-     padding: 1rem 2rem;
-     border-radius: 2rem;
-     font: inherit;
-     font-size: 0.875rem;
-     letter-spacing: 0.05em;
-     text-transform: uppercase;
-     cursor: pointer;
-     transition: background 0.2s ease;
-   }
-
-   .form__button:hover {
-     background: var(--accent);
-   }
-
-   .footer {
-     padding: 2rem 0;
-     text-align: center;
-     color: var(--muted);
-     font-size: 0.875rem;
-     border-top: 1px solid var(--line);
-   }
-
-   .mobile-menu-toggle {
-     display: none;
-     position: fixed;
-     top: 1rem;
-     right: 1rem;
-     z-index: 110;
-     background: var(--surface);
-     border: 1px solid var(--line);
-     width: 48px;
-     height: 48px;
-     border-radius: 50%;
-     align-items: center;
-     justify-content: center;
-     cursor: pointer;
-   }
-
-   .mobile-menu-toggle span {
-     display: block;
-     width: 18px;
-     height: 2px;
-     background: var(--text);
-     position: relative;
-   }
-
-   .mobile-menu-toggle span::before,
-   .mobile-menu-toggle span::after {
-     content: '';
-     position: absolute;
-     left: 0;
-     width: 18px;
-     height: 2px;
-     background: var(--text);
-     transition: transform 0.2s ease;
-   }
-
-   .mobile-menu-toggle span::before {
-     top: -6px;
-   }
-
-   .mobile-menu-toggle span::after {
-     top: 6px;
-   }
-
-   @media (min-width: 640px) {
-     .grid--about {
-       grid-template-columns: repeat(2, 1fr);
-     }
-
-     .projects__grid {
-       grid-template-columns: repeat(2, 1fr);
-     }
-
-     .contact__content {
-       grid-template-columns: 1fr 1fr;
-     }
-   }
-
-   @media (min-width: 1024px) {
-     .projects__grid {
-       grid-template-columns: repeat(3, 1fr);
-     }
-
-     .hero__inner {
-       grid-template-columns: 1.1fr 0.9fr;
-       gap: 4rem;
-     }
-
-     .hero__content {
-       order: 1;
-     }
-
-     .hero__visual {
-       order: 2;
-       justify-content: flex-end;
-     }
-
-     .hero__photo {
-       width: 340px;
-       height: 420px;
-     }
-   }
-
-   @media (max-width: 768px) {
-     .mobile-menu-toggle {
-       display: flex;
-     }
-
-     .nav {
-       width: 100%;
-       height: auto;
-       top: auto;
-       bottom: 0;
-       left: 0;
-       right: 0;
-       border-left: none;
-       border-top: 1px solid var(--line);
-       padding: 0.75rem 0;
-       transform: translateY(100%);
-       transition: transform 0.3s ease;
-     }
-
-     .nav.open {
-       transform: translateY(0);
-     }
-
-     .nav__list {
-       flex-direction: row;
-       justify-content: center;
-       gap: 1rem;
-     }
-
-     .nav__link {
-       writing-mode: horizontal-tb;
-       font-size: 0.6875rem;
-     }
-
-     .main {
-       margin-right: 0;
-       padding-bottom: 80px;
-     }
-
-     .hero {
-       min-height: auto;
-       padding-top: 7rem;
-     }
-
-     .section {
-       padding: 4rem 0;
-     }
-   }
- </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amila Tihic — Industrial & Jewellery Designer</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --accent: #c9a87c;
+      --line: #e8e8e8;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a87c' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font: inherit;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 64px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-left: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .nav__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .nav__link {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+      padding: 0.5rem;
+    }
+
+    .nav__link:hover,
+    .nav__link.active {
+      color: var(--text);
+    }
+
+    .main {
+      flex: 1;
+      margin-right: 64px;
+      min-height: 100vh;
+    }
+
+    .page {
+      display: none;
+      animation: fade 0.4s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 0;
+    }
+
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero__content {
+      order: 2;
+    }
+
+    .hero__visual {
+      order: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero__photo {
+      width: 260px;
+      height: 320px;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, #ece8e3 0%, #d8d0c6 100%);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero__title {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 1.05;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero__tagline {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--text);
+      color: var(--surface);
+      padding: 1rem 2rem;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 2rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+      width: fit-content;
+    }
+
+    .hero__cta:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section__header {
+      margin-bottom: 3rem;
+    }
+
+    .section__eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section__title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .about__intro {
+      color: var(--muted);
+      font-size: 1.125rem;
+      max-width: 720px;
+      margin-bottom: 3rem;
+      white-space: pre-line;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .grid--about {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    .card__title {
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .tag {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      color: var(--text);
+    }
+
+    .projects__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .carousel {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .carousel__track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.35s ease;
+    }
+
+    .carousel__slide {
+      min-width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel__slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel__placeholder {
+      color: var(--muted);
+      font-size: 0.875rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .carousel__btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      font-size: 1rem;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .carousel:hover .carousel__btn,
+    .carousel:focus-within .carousel__btn {
+      opacity: 1;
+    }
+
+    .carousel__btn--prev {
+      left: 0.5rem;
+    }
+
+    .carousel__btn--next {
+      right: 0.5rem;
+    }
+
+    .carousel__dots {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.4rem;
+      z-index: 2;
+    }
+
+    .carousel__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 0;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .carousel__dot.active {
+      background: var(--text);
+      transform: scale(1.15);
+    }
+
+    .project__info {
+      padding: 1.25rem;
+    }
+
+    .project__category {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .project__title {
+      font-size: 1.125rem;
+      font-weight: 500;
+    }
+
+    .project__open {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .project:hover .project__open {
+      color: var(--text);
+    }
+
+    .contact__content {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .contact__details {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact__details a {
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .contact__details a:hover {
+      color: var(--text);
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form__label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form__input,
+    .form__textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      background: var(--surface);
+      font: inherit;
+      color: var(--text);
+    }
+
+    .form__input:focus,
+    .form__textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form__textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .form__button {
+      align-self: flex-start;
+      background: var(--text);
+      color: var(--surface);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 2rem;
+      font: inherit;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .form__button:hover {
+      background: var(--accent);
+    }
+
+    .footer {
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 110;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--text);
+      position: relative;
+    }
+
+    .mobile-menu-toggle span::before,
+    .mobile-menu-toggle span::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: var(--text);
+      transition: transform 0.2s ease;
+    }
+
+    .mobile-menu-toggle span::before {
+      top: -6px;
+    }
+
+    .mobile-menu-toggle span::after {
+      top: 6px;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.45);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal__dialog {
+      position: relative;
+      z-index: 1;
+      width: min(920px, 100%);
+      max-height: min(90vh, 900px);
+      overflow: auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow);
+      animation: fade 0.25s ease;
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      z-index: 2;
+      transition: background 0.2s ease;
+    }
+
+    .modal__close:hover {
+      background: var(--line);
+    }
+
+    .modal__media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+      overflow: hidden;
+    }
+
+    .modal__media .carousel {
+      aspect-ratio: auto;
+      height: 100%;
+      cursor: default;
+    }
+
+    .modal__media .carousel__btn {
+      opacity: 1;
+      width: 40px;
+      height: 40px;
+    }
+
+    .modal__body {
+      padding: 1.5rem 1.5rem 2rem;
+    }
+
+    .modal__category {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal__title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .modal__text {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 65ch;
+      white-space: pre-line;
+    }
+
+    .modal__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid--about {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact__content {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .modal__body {
+        padding: 2rem 2rem 2.25rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .projects__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .hero__inner {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 4rem;
+      }
+
+      .hero__content {
+        order: 1;
+      }
+
+      .hero__visual {
+        order: 2;
+        justify-content: flex-end;
+      }
+
+      .hero__photo {
+        width: 340px;
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .nav {
+        width: 100%;
+        height: auto;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-left: none;
+        border-top: 1px solid var(--line);
+        padding: 0.75rem 0;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .nav.open {
+        transform: translateY(0);
+      }
+
+      .nav__list {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .nav__link {
+        writing-mode: horizontal-tb;
+        font-size: 0.6875rem;
+      }
+
+      .main {
+        margin-right: 0;
+        padding-bottom: 80px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 7rem;
+      }
+
+      .section {
+        padding: 4rem 0;
+      }
+
+      .carousel__btn {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
- <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle menu">
-   <span></span>
- </button>
+  <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span>
+  </button>
 
- <nav class="nav" id="nav">
-   <ul class="nav__list">
-     <li><a class="nav__link active" href="#home">Home</a></li>
-     <li><a class="nav__link" href="#jewellery">Jewellery</a></li>
-     <li><a class="nav__link" href="#industrial">Industrial</a></li>
-     <li><a class="nav__link" href="#about">About</a></li>
-     <li><a class="nav__link" href="#contact">Contact</a></li>
-   </ul>
- </nav>
+  <nav class="nav" id="nav">
+    <ul class="nav__list">
+      <li><a class="nav__link active" href="#home">Home</a></li>
+      <li><a class="nav__link" href="#jewellery">Jewellery</a></li>
+      <li><a class="nav__link" href="#industrial">Industrial</a></li>
+      <li><a class="nav__link" href="#about">About</a></li>
+      <li><a class="nav__link" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
- <main class="main">
-   <!-- Home -->
-   <section class="page active" id="home">
-     <div class="container">
-       <header class="hero">
-         <div class="hero__inner">
-           <div class="hero__content">
-             <p class="hero__eyebrow">Portfolio 2026</p>
-             <h1 class="hero__title">Amila Tihic</h1>
-             <p class="hero__tagline">Industrial and jewellery designer-maker</p>
-             <a class="hero__cta" href="#jewellery">View work</a>
-           </div>
-           <div class="hero__visual">
-             <div class="hero__photo" id="heroPhoto">
-               <!-- Hero image injected here -->
-             </div>
-           </div>
-         </div>
-       </header>
-     </div>
+  <main class="main">
+    <!-- Home -->
+    <section class="page active" id="home">
+      <div class="container">
+        <header class="hero">
+          <div class="hero__inner">
+            <div class="hero__content">
+              <p class="hero__eyebrow">Portfolio 2026</p>
+              <h1 class="hero__title">Amila Tihic</h1>
+              <p class="hero__tagline">Industrial and jewellery designer-maker</p>
+              <a class="hero__cta" href="#jewellery">View work</a>
+            </div>
+            <div class="hero__visual">
+              <div class="hero__photo" id="heroPhoto"></div>
+            </div>
+          </div>
+        </header>
+      </div>
 
-     <div class="container">
-       <div class="section__header">
-         <p class="section__eyebrow">Selected work</p>
-         <h2 class="section__title">Recent projects</h2>
-       </div>
-       <div class="projects__grid" id="featuredProjects"></div>
-     </div>
-   </section>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Selected work</p>
+          <h2 class="section__title">Recent projects</h2>
+        </div>
+        <div class="projects__grid" id="featuredProjects"></div>
+      </div>
+    </section>
 
-   <!-- Jewellery Design -->
-   <section class="page" id="jewellery">
-     <div class="container">
-       <div class="section">
-         <div class="section__header">
-           <p class="section__eyebrow">doba.objects</p>
-           <h2 class="section__title">Jewellery Design</h2>
-         </div>
-         <p class="about__intro">A collection of sculptural, modular jewellery pieces cast through the lost wax technique. Solid materials, no plating, designed to be mixed, matched, and worn across a lifetime.</p>
-         <div class="projects__grid" id="jewelleryProjects"></div>
-       </div>
-     </div>
-   </section>
+    <!-- Jewellery Design -->
+    <section class="page" id="jewellery">
+      <div class="container">
+        <div class="section">
+          <div class="section__header">
+            <p class="section__eyebrow">doba.objects</p>
+            <h2 class="section__title">Jewellery Design</h2>
+          </div>
+          <p class="about__intro">A collection of sculptural, modular jewellery pieces cast through the lost wax technique. Solid materials, no plating, designed to be mixed, matched, and worn across a lifetime.</p>
+          <div class="projects__grid" id="jewelleryProjects"></div>
+        </div>
+      </div>
+    </section>
 
-   <!-- Industrial Design -->
-   <section class="page" id="industrial">
-     <div class="container">
-       <div class="section">
-         <div class="section__header">
-           <p class="section__eyebrow">Objects &amp; systems</p>
-           <h2 class="section__title">Industrial Design</h2>
-         </div>
-         <p class="about__intro">Product and furniture explorations driven by function, material research, and manufacturing awareness. Work ranges from small domestic objects to production-ready concepts.</p>
-         <div class="projects__grid" id="industrialProjects"></div>
-       </div>
-     </div>
-   </section>
+    <!-- Industrial Design -->
+    <section class="page" id="industrial">
+      <div class="container">
+        <div class="section">
+          <div class="section__header">
+            <p class="section__eyebrow">Objects &amp; systems</p>
+            <h2 class="section__title">Industrial Design</h2>
+          </div>
+          <p class="about__intro">Product and furniture explorations driven by function, material research, and manufacturing awareness. Work ranges from small domestic objects to production-ready concepts.</p>
+          <div class="projects__grid" id="industrialProjects"></div>
+        </div>
+      </div>
+    </section>
 
-   <!-- About -->
-   <section class="page" id="about">
-     <div class="container">
-       <div class="section">
-         <div class="section__header">
-           <p class="section__eyebrow">Profile</p>
-           <h2 class="section__title">About</h2>
-         </div>
-         <p class="about__intro">I design and make jewellery and objects that sit somewhere between industrial precision and the hand.
+    <!-- About -->
+    <section class="page" id="about">
+      <div class="container">
+        <div class="section">
+          <div class="section__header">
+            <p class="section__eyebrow">Profile</p>
+            <h2 class="section__title">About</h2>
+          </div>
+          <p class="about__intro">I design and make jewellery and objects that sit somewhere between industrial precision and the hand.
 
 My background is in industrial design, followed by a year of apprenticeship at Elird Studio, where I learned to work at the bench. That combination shapes how I work. I think in structure, proportion and material behaviour, then I test everything by making it. Nothing leaves the studio as a rendering.
 
@@ -643,208 +851,482 @@ Through doba.objects, the brand I founded in Sarajevo, I develop pieces that are
 
 I take on commissions, collaborations and studio work.</p>
 
-         <div class="grid grid--about">
-           <div class="card">
-             <h3 class="card__title">Software</h3>
-             <ul class="list">
-               <li class="tag">Rhino</li>
-               <li class="tag">Nomad sculpt</li>
-               <li class="tag">Solidworks</li>
-               <li class="tag">Fusion 360</li>
-               <li class="tag">KeyShot</li>
-               <li class="tag">Adobe Illustrator</li>
-               <li class="tag">Adobe Photoshop</li>
-               <li class="tag">Figma</li>
-             </ul>
-           </div>
-           <div class="card">
-             <h3 class="card__title">Skills</h3>
-             <ul class="list">
-               <li class="tag">Creative direction</li>
-               <li class="tag">Jewellery design</li>
-               <li class="tag">Lost wax casting</li>
-               <li class="tag">3D modeling</li>
-               <li class="tag">Rendering</li>
-               <li class="tag">Prototyping</li>
-               <li class="tag">CMF research</li>
-               <li class="tag">Brand identity</li>
-             </ul>
-           </div>
-         </div>
-       </div>
-     </div>
-   </section>
+          <div class="grid grid--about">
+            <div class="card">
+              <h3 class="card__title">Software</h3>
+              <ul class="list">
+                <li class="tag">Rhino</li>
+                <li class="tag">Nomad sculpt</li>
+                <li class="tag">Solidworks</li>
+                <li class="tag">Fusion 360</li>
+                <li class="tag">KeyShot</li>
+                <li class="tag">Adobe Illustrator</li>
+                <li class="tag">Adobe Photoshop</li>
+                <li class="tag">Figma</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="card__title">Skills</h3>
+              <ul class="list">
+                <li class="tag">Creative direction</li>
+                <li class="tag">Jewellery design</li>
+                <li class="tag">Lost wax casting</li>
+                <li class="tag">3D modeling</li>
+                <li class="tag">Rendering</li>
+                <li class="tag">Prototyping</li>
+                <li class="tag">CMF research</li>
+                <li class="tag">Brand identity</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-   <!-- Contact -->
-   <section class="page" id="contact">
-     <div class="container">
-       <div class="section">
-         <div class="section__header">
-           <p class="section__eyebrow">Get in touch</p>
-           <h2 class="section__title">Contact</h2>
-         </div>
-         <div class="contact__content">
-           <div>
-             <p class="about__intro">For commissions, collaborations or employment enquiries, contact via email.
+    <!-- Contact -->
+    <section class="page" id="contact">
+      <div class="container">
+        <div class="section">
+          <div class="section__header">
+            <p class="section__eyebrow">Get in touch</p>
+            <h2 class="section__title">Contact</h2>
+          </div>
+          <div class="contact__content">
+            <div>
+              <p class="about__intro">For commissions, collaborations or employment enquiries, contact via email.
 CV available on request.</p>
-             <ul class="contact__details">
-               <li>Email: <a href="mailto:amilatihic.01@gmail.com">amilatihic.01@gmail.com</a></li>
-               <li>Instagram: <a href="https://instagram.com/doba.objects" target="_blank" rel="noopener">@doba.objects</a></li>
-               <li>Studio: Sarajevo, Bosnia and Herzegovina</li>
-             </ul>
-           </div>
-           <form class="form" onsubmit="event.preventDefault(); alert('Message sent.');">
-             <div class="form__field">
-               <label class="form__label" for="name">Name</label>
-               <input class="form__input" type="text" id="name" name="name" required />
-             </div>
-             <div class="form__field">
-               <label class="form__label" for="email">Email</label>
-               <input class="form__input" type="email" id="email" name="email" required />
-             </div>
-             <div class="form__field">
-               <label class="form__label" for="message">Message</label>
-               <textarea class="form__textarea" id="message" name="message" required></textarea>
-             </div>
-             <button class="form__button" type="submit">Send message</button>
-           </form>
-         </div>
-       </div>
-     </div>
-   </section>
+              <ul class="contact__details">
+                <li>Email: <a href="mailto:amilatihic.01@gmail.com">amilatihic.01@gmail.com</a></li>
+                <li>Instagram: <a href="https://instagram.com/doba.objects" target="_blank" rel="noopener">@doba.objects</a></li>
+                <li>Studio: Sarajevo, Bosnia and Herzegovina</li>
+              </ul>
+            </div>
+            <form class="form" onsubmit="event.preventDefault(); alert('Message sent.');">
+              <div class="form__field">
+                <label class="form__label" for="name">Name</label>
+                <input class="form__input" type="text" id="name" name="name" required />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="email">Email</label>
+                <input class="form__input" type="email" id="email" name="email" required />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="message">Message</label>
+                <textarea class="form__textarea" id="message" name="message" required></textarea>
+              </div>
+              <button class="form__button" type="submit">Send message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
-   <footer class="footer">
-     <div class="container">
-       <p>&copy; 2026 Amila Tihic. All rights reserved.</p>
-     </div>
-   </footer>
- </main>
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Amila Tihic. All rights reserved.</p>
+      </div>
+    </footer>
+  </main>
 
- <script>
-   // ============================================================
-   // IMAGE CONFIGURATION
-   // Update the paths below to point to your own image files.
-   // Place images in an "images" folder next to this index.html,
-   // or use full URLs (e.g. "https://example.com/photo.jpg").
-   // Leave a path as an empty string "" to show a placeholder.
-   // ============================================================
+  <!-- Project modal -->
+  <div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__dialog">
+      <button class="modal__close" type="button" data-close-modal aria-label="Close project details">×</button>
+      <div class="modal__media" id="modalMedia"></div>
+      <div class="modal__body">
+        <p class="modal__category" id="modalCategory"></p>
+        <h2 class="modal__title" id="modalTitle"></h2>
+        <p class="modal__text" id="modalText"></p>
+        <div class="modal__meta" id="modalMeta"></div>
+      </div>
+    </div>
+  </div>
 
-   const IMAGES = {
-     hero: "images/hero-photo.jpg",
+  <script>
+    // ============================================================
+    // MANUAL IMAGE + PROJECT CONFIG
+    // Edit paths and text below.
+    // Use local paths like "images/file.jpg" or full URLs.
+    // Leave an image path as "" to show a placeholder for that slide.
+    // Each project supports up to 3 carousel images.
+    // ============================================================
 
-     jewellery: [
-       "images/jewellery-01.jpg",
-       "images/jewellery-02.jpg",
-       "images/jewellery-03.jpg",
-       "images/jewellery-04.jpg",
-       "images/jewellery-05.jpg",
-       "images/jewellery-06.jpg"
-     ],
+    const HERO_IMAGE = "images/hero-photo.jpg";
 
-     industrial: [
-       "images/industrial-01.jpg",
-       "images/industrial-02.jpg",
-       "images/industrial-03.jpg"
-     ]
-   };
+    const projects = [
+      {
+        id: "lunar-studs",
+        title: "Lunar Studs",
+        category: "Jewellery",
+        type: "jewellery",
+        description: "A pair of solid studs shaped around quiet lunar geometry. Designed for everyday wear with a modular twin-piece option.",
+        tags: ["Lost wax", "Solid silver", "Everyday"],
+        images: [
+          "images/jewellery-01a.jpg",
+          "images/jewellery-01b.jpg",
+          "images/jewellery-01c.jpg"
+        ]
+      },
+      {
+        id: "modular-ring-set",
+        title: "Modular Ring Set",
+        category: "Jewellery",
+        type: "jewellery",
+        description: "Interlocking rings that stack as a single composition or separate into independent pieces. Proportion-led and cast as solid metal.",
+        tags: ["Modular", "Stacking", "Casting"],
+        images: [
+          "images/jewellery-02a.jpg",
+          "images/jewellery-02b.jpg",
+          "images/jewellery-02c.jpg"
+        ]
+      },
+      {
+        id: "echo-necklace",
+        title: "Echo Necklace",
+        category: "Jewellery",
+        type: "jewellery",
+        description: "A sculptural necklace built from repeated curves. The silhouette is soft from a distance and precise up close.",
+        tags: ["Sculptural", "Necklace", "doba.objects"],
+        images: [
+          "images/jewellery-03a.jpg",
+          "images/jewellery-03b.jpg",
+          "images/jewellery-03c.jpg"
+        ]
+      },
+      {
+        id: "flux-cuff",
+        title: "Flux Cuff",
+        category: "Jewellery",
+        type: "jewellery",
+        description: "A cuff with a continuous edge that shifts thickness along the form. Made to feel architectural without losing comfort.",
+        tags: ["Bracelet", "Form study", "Wearable"],
+        images: [
+          "images/jewellery-04a.jpg",
+          "images/jewellery-04b.jpg",
+          "images/jewellery-04c.jpg"
+        ]
+      },
+      {
+        id: "stack-earrings",
+        title: "Stack Earrings",
+        category: "Jewellery",
+        type: "jewellery",
+        description: "Layered earrings designed as a system. Each element can be worn alone or combined into a denser composition.",
+        tags: ["Earrings", "System", "Mix and match"],
+        images: [
+          "images/jewellery-05a.jpg",
+          "images/jewellery-05b.jpg",
+          "images/jewellery-05c.jpg"
+        ]
+      },
+      {
+        id: "void-pendant",
+        title: "Void Pendant",
+        category: "Jewellery",
+        type: "jewellery",
+        description: "A pendant defined by negative space. The opening becomes the main detail, keeping the object quiet and deliberate.",
+        tags: ["Pendant", "Negative space", "Solid metal"],
+        images: [
+          "images/jewellery-06a.jpg",
+          "images/jewellery-06b.jpg",
+          "images/jewellery-06c.jpg"
+        ]
+      },
+      {
+        id: "TRI Lounge chair",
+        title: "TRI Lounge chair",
+        category: "Industrial",
+        type: "industrial",
+        description: "A seating concept focused on structural clarity and material honesty. The ridge line stiffens the shell while defining the silhouette.",
+        tags: ["Furniture", "Structure", "Prototype"],
+        images: [
+          "8.1.jpg",
+          "6 (1).jpg",
+          "Screenshot 2025-09-26 094436.png"
+        ]
+      },
+      {
+        id: "MI Bench",
+        title: "MI Bench",
+        category: "Industrial",
+        type: "industrial",
+        description: "A compact lamp exploring light diffusion through layered material. Designed as a calm domestic object with production in mind.",
+        tags: ["Lighting", "CMF", "Domestic"],
+        images: [
+          "KLUPA1.jpg",
+          "KLUPA2.jpg",
+          "slika klupe uz tekst vlastiti rad kao izvor za dalje kreativno istrazivanje.png"
+        ]
+      },
+      {
+        id: "ULA",
+        title: "ULA",
+        category: "Industrial",
+        type: "industrial",
+        description: "A vessel study balancing weight, proportion and surface. The form is reduced so material behaviour stays visible.",
+        tags: ["Object", "Proportion", "Material"],
+        images: [
+          "ULA1.jpg",
+          "ULA2.jpg",
+          "ULA3.jpg"
+        ]
+      }
+    ];
 
-   const projects = [
-     { title: 'Lunar Studs', category: 'Jewellery', type: 'jewellery', id: 1 },
-     { title: 'Modular Ring Set', category: 'Jewellery', type: 'jewellery', id: 2 },
-     { title: 'Echo Necklace', category: 'Jewellery', type: 'jewellery', id: 3 },
-     { title: 'Flux Cuff', category: 'Jewellery', type: 'jewellery', id: 4 },
-     { title: 'Stack Earrings', category: 'Jewellery', type: 'jewellery', id: 5 },
-     { title: 'Void Pendant', category: 'Jewellery', type: 'jewellery', id: 6 },
-     { title: 'Ridge Chair', category: 'Industrial', type: 'industrial', id: 7 },
-     { title: 'Terra Lamp', category: 'Industrial', type: 'industrial', id: 8 },
-     { title: 'Core Vessel', category: 'Industrial', type: 'industrial', id: 9 }
-   ];
+    function createCarousel(images, title, options = {}) {
+      const {
+        openOnClick = false,
+        projectId = "",
+        showControls = true
+      } = options;
 
-   function getImage(type, index) {
-     const list = IMAGES[type];
-     if (!list) return '';
-     if (Array.isArray(list)) {
-       return list[index] || '';
-     }
-     return list;
-   }
+      const slides = (images && images.length ? images.slice(0, 3) : ["", "", ""]);
+      while (slides.length < 3) slides.push("");
 
-   function renderHeroPhoto() {
-     const container = document.getElementById('heroPhoto');
-     const src = getImage('hero', 0);
+      const carousel = document.createElement("div");
+      carousel.className = "carousel";
+      carousel.dataset.index = "0";
+      if (projectId) carousel.dataset.projectId = projectId;
 
-     if (src) {
-       container.innerHTML = `<img src="${src}" alt="Portrait of Amila Tihic" />`;
-     } else {
-       container.innerHTML = `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.875rem;text-align:center;padding:1rem;">Personal photo<br />(add path in IMAGES.hero)</span>`;
-     }
-   }
+      const track = document.createElement("div");
+      track.className = "carousel__track";
 
-   function createCard(project, index) {
-     const div = document.createElement('article');
-     div.className = 'project';
+      slides.forEach((src, i) => {
+        const slide = document.createElement("div");
+        slide.className = "carousel__slide";
 
-     const src = getImage(project.type, index);
-     const imageHtml = src
-       ? `<img src="${src}" alt="${project.title}" loading="lazy" />`
-       : `<span class="project__placeholder">Project ${project.id}</span>`;
+        if (src) {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = `${title} image ${i + 1}`;
+          img.loading = "lazy";
+          slide.appendChild(img);
+        } else {
+          const placeholder = document.createElement("span");
+          placeholder.className = "carousel__placeholder";
+          placeholder.textContent = `${title} · image ${i + 1}`;
+          slide.appendChild(placeholder);
+        }
 
-      div.innerHTML = `
-        <div class="project__image">${imageHtml}</div>
-       <div class="project__info">
-         <p class="project__category">${project.category}</p>
-          <h3 class="project__title">${project.title}</h3>
-       </div>
-     `;
+        track.appendChild(slide);
+      });
 
-     return div;
-   }
+      carousel.appendChild(track);
 
-   function renderProjects(containerId, filter) {
-     const container = document.getElementById(containerId);
-     const filtered = filter ? projects.filter(p => p.type === filter) : projects;
+      if (showControls) {
+        const prev = document.createElement("button");
+        prev.className = "carousel__btn carousel__btn--prev";
+        prev.type = "button";
+        prev.setAttribute("aria-label", "Previous image");
+        prev.textContent = "‹";
 
-     filtered.forEach((project, index) => {
-       container.appendChild(createCard(project, index));
-     });
-   }
+        const next = document.createElement("button");
+        next.className = "carousel__btn carousel__btn--next";
+        next.type = "button";
+        next.setAttribute("aria-label", "Next image");
+        next.textContent = "›";
 
-   renderHeroPhoto();
-   renderProjects('featuredProjects', null);
-   renderProjects('jewelleryProjects', 'jewellery');
-   renderProjects('industrialProjects', 'industrial');
+        const dots = document.createElement("div");
+        dots.className = "carousel__dots";
 
-   const links = document.querySelectorAll('.nav__link');
-   const pages = document.querySelectorAll('.page');
-   const nav = document.getElementById('nav');
-   const menuToggle = document.getElementById('menuToggle');
+        slides.forEach((_, i) => {
+          const dot = document.createElement("button");
+          dot.className = "carousel__dot" + (i === 0 ? " active" : "");
+          dot.type = "button";
+          dot.setAttribute("aria-label", `Go to image ${i + 1}`);
+          dot.dataset.dot = String(i);
+          dots.appendChild(dot);
+        });
 
-   function showPage(hash) {
-     const target = hash.replace('#', '') || 'home';
-     pages.forEach(page => page.classList.toggle('active', page.id === target));
-     links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${target}`));
-     window.scrollTo(0, 0);
-     nav.classList.remove('open');
-   }
+        carousel.appendChild(prev);
+        carousel.appendChild(next);
+        carousel.appendChild(dots);
 
-   links.forEach(link => {
-     link.addEventListener('click', e => {
-       e.preventDefault();
-       const hash = link.getAttribute('href');
-       history.pushState(null, '', hash);
-       showPage(hash);
-     });
-   });
+        const setIndex = (index) => {
+          const total = slides.length;
+          const nextIndex = (index + total) % total;
+          carousel.dataset.index = String(nextIndex);
+          track.style.transform = `translateX(-${nextIndex * 100}%)`;
+          dots.querySelectorAll(".carousel__dot").forEach((dot, i) => {
+            dot.classList.toggle("active", i === nextIndex);
+          });
+        };
 
-   menuToggle.addEventListener('click', () => {
-     nav.classList.toggle('open');
-   });
+        prev.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setIndex(Number(carousel.dataset.index) - 1);
+        });
 
-   window.addEventListener('popstate', () => {
-     showPage(window.location.hash);
-   });
+        next.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setIndex(Number(carousel.dataset.index) + 1);
+        });
 
-   showPage(window.location.hash);
- </script>
+        dots.addEventListener("click", (e) => {
+          const target = e.target.closest("[data-dot]");
+          if (!target) return;
+          e.stopPropagation();
+          setIndex(Number(target.dataset.dot));
+        });
+      }
+
+      if (openOnClick && projectId) {
+        carousel.addEventListener("click", () => openModal(projectId));
+      }
+
+      return carousel;
+    }
+
+    function createCard(project) {
+      const article = document.createElement("article");
+      article.className = "project";
+
+      const carousel = createCarousel(project.images, project.title, {
+        openOnClick: true,
+        projectId: project.id,
+        showControls: true
+      });
+
+      const info = document.createElement("div");
+      info.className = "project__info";
+      info.innerHTML = `
+        <p class="project__category">${project.category}</p>
+        <h3 class="project__title">${project.title}</h3>
+        <button class="project__open" type="button">View project</button>
+      `;
+
+      info.querySelector(".project__open").addEventListener("click", () => {
+        openModal(project.id);
+      });
+
+      article.appendChild(carousel);
+      article.appendChild(info);
+      return article;
+    }
+
+    function renderHeroPhoto() {
+      const container = document.getElementById("heroPhoto");
+      if (HERO_IMAGE) {
+        container.innerHTML = `<img src="${HERO_IMAGE}" alt="Portrait of Amila Tihic" />`;
+      } else {
+        container.innerHTML = `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.875rem;text-align:center;padding:1rem;">Personal photo<br />(set HERO_IMAGE path)</span>`;
+      }
+    }
+
+    function renderProjects(containerId, filter) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      const filtered = filter ? projects.filter((p) => p.type === filter) : projects;
+      filtered.forEach((project) => container.appendChild(createCard(project)));
+    }
+
+    // Modal
+    const modal = document.getElementById("projectModal");
+    const modalMedia = document.getElementById("modalMedia");
+    const modalCategory = document.getElementById("modalCategory");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalText = document.getElementById("modalText");
+    const modalMeta = document.getElementById("modalMeta");
+
+    function openModal(projectId) {
+      const project = projects.find((p) => p.id === projectId);
+      if (!project) return;
+
+      modalCategory.textContent = project.category;
+      modalTitle.textContent = project.title;
+      modalText.textContent = project.description;
+
+      modalMeta.innerHTML = "";
+      (project.tags || []).forEach((tag) => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = tag;
+        modalMeta.appendChild(span);
+      });
+
+      modalMedia.innerHTML = "";
+      modalMedia.appendChild(
+        createCarousel(project.images, project.title, {
+          openOnClick: false,
+          showControls: true
+        })
+      );
+
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      modalMedia.innerHTML = "";
+    }
+
+    modal.querySelectorAll("[data-close-modal]").forEach((el) => {
+      el.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        closeModal();
+      }
+    });
+
+    // Init content
+    renderHeroPhoto();
+    renderProjects("featuredProjects", null);
+    renderProjects("jewelleryProjects", "jewellery");
+    renderProjects("industrialProjects", "industrial");
+
+    // Navigation
+    const links = document.querySelectorAll(".nav__link");
+    const pages = document.querySelectorAll(".page");
+    const nav = document.getElementById("nav");
+    const menuToggle = document.getElementById("menuToggle");
+
+    function showPage(hash) {
+      const target = hash.replace("#", "") || "home";
+      pages.forEach((page) => page.classList.toggle("active", page.id === target));
+      links.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${target}`));
+      window.scrollTo(0, 0);
+      nav.classList.remove("open");
+      closeModal();
+    }
+
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const hash = link.getAttribute("href");
+        history.pushState(null, "", hash);
+        showPage(hash);
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      if (anchor.classList.contains("nav__link")) return;
+      anchor.addEventListener("click", (e) => {
+        const hash = anchor.getAttribute("href");
+        if (!hash || hash === "#") return;
+        const page = document.querySelector(hash);
+        if (!page || !page.classList.contains("page")) return;
+        e.preventDefault();
+        history.pushState(null, "", hash);
+        showPage(hash);
+      });
+    });
+
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+
+    window.addEventListener("popstate", () => {
+      showPage(window.location.hash);
+    });
+
+    showPage(window.location.hash);
+  </script>
 </body>
 </html>
